@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import "../layout.css";
 import { Link, useLocation } from "react-router-dom";
 
 function Layout({ children }) {
+  const [collapsed, setCollapsed] = useState(false);
   const location = useLocation();
   const userMenu = [
     {
@@ -50,7 +51,7 @@ function Layout({ children }) {
                     }`}
                   >
                     <i class={menu.icon}></i>
-                    <Link to={menu.path}>{menu.name}</Link>
+                    {!collapsed && <Link to={menu.path}>{menu.name}</Link>}
                   </div>
                 );
               })}
@@ -58,7 +59,22 @@ function Layout({ children }) {
           </div>
         </div>
         <div className="content">
-          <div className="header">header</div>
+          <div className="header">
+            {collapsed ? (
+              <i
+                className="ri-menu-2-fill header-action-icon"
+                onClick={() => setCollapsed(false)}
+              ></i>
+            ) : (
+              <i
+                className="ri-close-fill header-action-icon"
+                onClick={() => setCollapsed(true)}
+              ></i>
+            )}
+            <div className="d-flex">
+              <i className="ri-notification-line header-action-icon"></i>
+            </div>
+          </div>
 
           <div className="body">{children}</div>
         </div>
