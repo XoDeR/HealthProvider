@@ -3,6 +3,11 @@
   height: 100vh;
 }
 
+.logo {
+  color: antiquewhite;
+  font-weight: bold;
+}
+
 .sidebar {
   background-color: darkcyan;
   border-radius: 5px;
