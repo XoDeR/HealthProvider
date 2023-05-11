@@ -25,10 +25,12 @@ function ProtectedRoute(props) {
       if (response.data.success) {
         dispatch(setUser(response.data.data));
       } else {
+        localStorage.removeItem("token");
         navigate("/login");
       }
     } catch (error) {
       dispatch(hideLoading());
+      localStorage.removeItem("token");
       navigate("/login");
     }
   };
