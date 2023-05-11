@@ -26,11 +26,13 @@ function ProtectedRoute(props) {
         dispatch(setUser(response.data.data));
       } else {
         localStorage.removeItem("token");
+        dispatch(setUser(null));
         navigate("/login");
       }
     } catch (error) {
       dispatch(hideLoading());
       localStorage.removeItem("token");
+      dispatch(setUser(null));
       navigate("/login");
     }
   };

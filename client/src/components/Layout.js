@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import "../layout.css";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { setUser } from "../redux/userSlice";
 
 function Layout({ children }) {
   const [collapsed, setCollapsed] = useState(false);
   const { user } = useSelector((state) => state.user);
   const navigate = useNavigate();
   const location = useLocation();
+  const dispatch = useDispatch();
   const userMenu = [
     {
       name: "Home",
@@ -82,6 +84,7 @@ function Layout({ children }) {
                 className="d-flex menu-item"
                 onClick={() => {
                   localStorage.removeItem("token");
+                  dispatch(setUser(null));
                   navigate("/login");
                 }}
               >
