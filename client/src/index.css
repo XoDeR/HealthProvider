@@ -13,7 +13,8 @@ input {
   height: 34px !important;
 }
 
-input:focus {
+input:focus,
+.ant-picker {
   outline: none !important;
   box-shadow: none !important;
   border: 2px solid gray !important;
@@ -28,10 +29,27 @@ label {
   margin: 10px 0 !important;
 }
 
+.ant-picker-input input {
+  border: none !important;
+}
+
+.ant-picker {
+  border-radius: 0 !important;
+  border: 1px solid gray !important;
+  height: 34px !important;
+}
+
 /* Common */
 
+.page-title {
+  font-size: 25px;
+  color: rgba(0, 0, 0, 0.84);
+  font-weight: bold;
+}
+
 .card-title {
-  font-size: 1.5rem;
+  font-size: 22px;
+  color: rgba(0, 0, 0, 0.548);
   font-weight: bold;
 }
 
@@ -49,6 +67,7 @@ label {
   border-color: darkcyan !important;
   height: 34px !important;
   width: 100% !important;
+  width: max-content !important;
   color: beige !important;
   font-size: 16px !important;
   border-radius: 0 !important;
