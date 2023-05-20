@@ -50,6 +50,7 @@ router.post(
         message: `Your doctor account has been ${status}`,
         onClickPath: "/notifications",
       });
+      user.isDoctor = status === "approved" ? true : false;
       await user.save();
       res.status(200).send({
         message: "Doctor status updated successfully",
