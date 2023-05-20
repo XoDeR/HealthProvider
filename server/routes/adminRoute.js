@@ -36,4 +36,32 @@ router.get("/get-all-users", authMiddleware, async (req, res) => {
   }
 });
 
+router.post(
+  "/change-doctor-account-status",
+  authMiddleware,
+  async (req, res) => {
+    try {
+      const { doctorId, status } = req.body;
+      const doctor = await Doctor.findByIdAndUpdate(doctorId, { status });
+      const user = await User.findOne({ _id: doctor.userId });
+      const unseenNotifications = user.unseenNotifications;
+      unseenNotifications.push({
+        type: "doctor-request-changed",
+        message: `Your doctor account has been ${status}`,
+        onClickPath: "/notifications",
+      });
+      await user.save();
+      res.status(200).send({
+        message: "Doctor status updated successfully",
+        success: true,
+      });
+    } catch (error) {
+      console.log(error);
+      res
+        .status(500)
+        .send({ message: "Error changing doctor's status", success: false });
+    }
+  }
+);
+
 module.exports = router;
