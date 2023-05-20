@@ -66,11 +66,14 @@ label {
   background-color: darkcyan !important;
   border-color: darkcyan !important;
   height: 34px !important;
-  width: 100% !important;
   width: max-content !important;
   color: beige !important;
   font-size: 16px !important;
   border-radius: 0 !important;
+}
+
+.full-width-button {
+  width: 100% !important;
 }
 
 .anchor {
