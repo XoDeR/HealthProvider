@@ -46,7 +46,7 @@ function Profile() {
     try {
       dispatch(showLoading());
       const response = await axios.post(
-        "/api/user/apply-doctor-account",
+        "/api/doctor/update-doctor-profile",
         {
           ...values,
           userId: user._id,

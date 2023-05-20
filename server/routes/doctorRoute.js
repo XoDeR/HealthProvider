@@ -19,4 +19,27 @@ router.post("/get-doctor-info-by-user-id", authMiddleware, async (req, res) => {
   }
 });
 
+router.post("/update-doctor-profile", authMiddleware, async (req, res) => {
+  try {
+    const doctor = await Doctor.findOneAndUpdate(
+      { userId: req.body.userId },
+      req.body,
+      {
+        new: true,
+      }
+    );
+    res.status(200).send({
+      success: true,
+      message: "Doctor profile updated successfully.",
+      data: doctor,
+    });
+  } catch (error) {
+    res.status(500).send({
+      message: "Error updating doctor profile",
+      success: false,
+      error,
+    });
+  }
+});
+
 module.exports = router;
