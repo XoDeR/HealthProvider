@@ -42,12 +42,12 @@ function Layout({ children }) {
     },
     {
       name: "Users",
-      path: "/users",
+      path: "/admin/userlist",
       icon: "ri-user-star-line",
     },
     {
       name: "Doctors",
-      path: "/doctors",
+      path: "/admin/doctorlist",
       icon: "ri-hospital-line",
     },
     {
