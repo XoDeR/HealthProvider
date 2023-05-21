@@ -16,7 +16,7 @@ function Register() {
       dispatch(hideLoading());
       if (response.data.success) {
         toast.success(response.data.message);
-        toast("Redirecting to Login page");
+        // toast("Redirecting to Login page");
         navigate("/login");
       } else {
         toast.error(response.data.message);
