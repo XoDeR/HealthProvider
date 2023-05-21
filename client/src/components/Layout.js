@@ -80,6 +80,7 @@ function Layout({ children }) {
     : user?.isDoctor
     ? doctorMenu
     : userMenu;
+  const role = user?.isAdmin ? "Admin" : user?.isDoctor ? "Doctor" : "User";
 
   return (
     <div className="main">
@@ -87,33 +88,34 @@ function Layout({ children }) {
         <div className="sidebar">
           <div className="sidebar-header">
             <h1 className="logo">HP</h1>
-            <div className="menu">
-              {menuToBeRendered.map((menu) => {
-                const isActive = location.pathname === menu.path;
-                return (
-                  <div
-                    className={`d-flex menu-item ${
-                      isActive && "active-menu-item"
-                    }`}
-                    key={menu.name}
-                  >
-                    <i className={menu.icon}></i>
-                    {!collapsed && <Link to={menu.path}>{menu.name}</Link>}
-                  </div>
-                );
-              })}
+            <h1 className="role">{role}</h1>
+          </div>
+          <div className="menu">
+            {menuToBeRendered.map((menu) => {
+              const isActive = location.pathname === menu.path;
+              return (
+                <div
+                  className={`d-flex menu-item ${
+                    isActive && "active-menu-item"
+                  }`}
+                  key={menu.name}
+                >
+                  <i className={menu.icon}></i>
+                  {!collapsed && <Link to={menu.path}>{menu.name}</Link>}
+                </div>
+              );
+            })}
 
-              <div
-                className="d-flex menu-item"
-                onClick={() => {
-                  localStorage.removeItem("token");
-                  dispatch(setUser(null));
-                  navigate("/login");
-                }}
-              >
-                <i className="ri-logout-box-line"></i>
-                {!collapsed && <Link to={"/login"}>Logout</Link>}
-              </div>
+            <div
+              className="d-flex menu-item"
+              onClick={() => {
+                localStorage.removeItem("token");
+                dispatch(setUser(null));
+                navigate("/login");
+              }}
+            >
+              <i className="ri-logout-box-line"></i>
+              {!collapsed && <Link to={"/login"}>Logout</Link>}
             </div>
           </div>
         </div>
