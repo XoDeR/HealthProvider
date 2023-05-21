@@ -46,6 +46,12 @@ function Profile() {
   const onFinish = async (values) => {
     try {
       dispatch(showLoading());
+      ////
+      console.log(values.timings[0]);
+      console.log(values.timings[1]);
+      console.log(moment(values.timings[0]).format("HH:mm"));
+      console.log(moment(values.timings[1]).format("HH:mm"));
+      ////
       const response = await axios.post(
         "/api/doctor/update-doctor-profile",
         {
