@@ -6,7 +6,7 @@ import { showLoading, hideLoading } from "../redux/alertsSlice";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import DoctorForm from "../components/DoctorForm";
-import moment from "moment";
+import dayjs from "dayjs";
 
 function ApplyDoctor() {
   const dispatch = useDispatch();
@@ -21,8 +21,8 @@ function ApplyDoctor() {
           ...values,
           userId: user._id,
           timings: [
-            moment(values.timings[0]).format("HH:mm"),
-            moment(values.timings[1]).format("HH:mm"),
+            dayjs(values.timings[0]).format("HH:mm"),
+            dayjs(values.timings[1]).format("HH:mm"),
           ],
         },
         {
