@@ -6,13 +6,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { showLoading, hideLoading } from "../redux/alertsSlice";
 import dayjs from "dayjs";
 import { Row, Col, Button, TimePicker, DatePicker } from "antd";
+import toast from "react-hot-toast";
 
 function BookAppointment() {
   const params = useParams();
   const [doctor, setDoctor] = useState(null);
   const [isAvailable, setIsAvailable] = useState(false);
   const [date, setDate] = useState();
-  const [selectedTimings, setSelectedTimings] = useState();
+  const [time, setTime] = useState();
   const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
@@ -39,11 +40,41 @@ function BookAppointment() {
     }
   };
 
+  const bookNow = async () => {
+    try {
+      dispatch(showLoading());
+      const response = await axios.post(
+        "/api/user/book-appointment",
+        {
+          doctorId: params.doctorId,
+          userId: user._id,
+          doctorInfo: doctor,
+          userInfo: user,
+          date: date,
+          time: time,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      dispatch(hideLoading());
+      if (response.data.success) {
+        toast.success(response.data.message);
+      }
+    } catch (error) {
+      toast.error("Error booking appointment.");
+      dispatch(hideLoading());
+    }
+  };
+
   useEffect(() => {
     if (user) {
       getDoctorData();
     }
   }, [user]);
+
   return (
     <Layout>
       {doctor && (
@@ -65,18 +96,19 @@ function BookAppointment() {
                     setDate(dayjs(value).format("DD-MM-YYYY"))
                   }
                 />
-                <TimePicker.RangePicker
+                <TimePicker
                   format="HH:mm"
                   className="mt-3"
-                  onChange={(values) =>
-                    setSelectedTimings([
-                      dayjs(values[0]).format("HH-mm"),
-                      dayjs(values[0]).format("HH-mm"),
-                    ])
-                  }
+                  onChange={(value) => setTime(dayjs(value).format("HH-mm"))}
                 />
                 <Button className="primary-button mt-3 full-width-button">
                   Check availability
+                </Button>
+                <Button
+                  className="primary-button mt-3 full-width-button"
+                  onClick={() => bookNow()}
+                >
+                  Book now
                 </Button>
               </div>
             </Col>
