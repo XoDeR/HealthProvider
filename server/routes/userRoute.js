@@ -6,6 +6,7 @@ const Appointment = require("../models/appointmentModel");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const authMiddleware = require("../middlewares/authMiddleware");
+const dayjs = require("dayjs");
 
 router.post("/register", async (req, res) => {
   try {
@@ -186,6 +187,41 @@ router.post("/book-appointment", authMiddleware, async (req, res) => {
     res
       .status(500)
       .send({ message: "Error booking appointment", success: false });
+  }
+});
+
+router.post("/check-booking-availability", authMiddleware, async (req, res) => {
+  try {
+    const date = dayjs(req.body.date, "DD-MM-YYYY").toISOString();
+
+    const fromTime = dayjs(req.body.time, "HH:mm")
+      .subtract(60, "minutes")
+      .toISOString();
+    const toTime = dayjs(req.body.time, "HH:mm")
+      .add(60, "minutes")
+      .toISOString();
+    const doctorId = req.body.doctorId;
+    const appointments = await Appointment.find({
+      doctorId,
+      date,
+      time: { $gte: fromTime, $lte: toTime },
+    });
+    if (appointments.length > 0) {
+      return res.status(200).send({
+        message: "Appointment not available",
+        success: false,
+      });
+    } else {
+      return res.status(200).send({
+        message: "Appointment available",
+        success: true,
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    res
+      .status(500)
+      .send({ message: "Error checking booking availability", success: false });
   }
 });
 
