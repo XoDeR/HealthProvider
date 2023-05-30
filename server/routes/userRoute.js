@@ -171,6 +171,8 @@ router.get("/get-all-approved-doctors", authMiddleware, async (req, res) => {
 router.post("/book-appointment", authMiddleware, async (req, res) => {
   try {
     req.body.status = "pending";
+    req.body.date = dayjs(req.body.date, "DD-MM-YYYY").toISOString();
+    req.body.time = dayjs(req.body.time, "HH:mm").toISOString();
     const newAppointment = new Appointment(req.body);
     await newAppointment.save();
     const user = await User.findOne({ _id: req.body.doctorInfo.userId });
