@@ -24,7 +24,7 @@ function DoctorList() {
         setDoctors(response.data.data);
       }
     } catch (error) {
-      toast.error("Error changing doctor account status");
+      toast.error("Error getting all doctors");
       dispatch(hideLoading());
     }
   };

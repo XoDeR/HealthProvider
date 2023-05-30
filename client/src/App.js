@@ -9,6 +9,7 @@ import UserList from "./pages/Admin/UserList";
 import DoctorList from "./pages/Admin/DoctorList";
 import Profile from "./pages/Doctor/Profile";
 import BookAppointment from "./pages/BookAppointment";
+import Appointments from "./pages/Appointments";
 import { Toaster } from "react-hot-toast";
 import { useSelector } from "react-redux";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -94,6 +95,14 @@ function App() {
           element={
             <ProtectedRoute>
               <BookAppointment />
+            </ProtectedRoute>
+          }
+        ></Route>
+        <Route
+          path="/appointments"
+          element={
+            <ProtectedRoute>
+              <Appointments />
             </ProtectedRoute>
           }
         ></Route>
