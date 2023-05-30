@@ -41,6 +41,7 @@ function BookAppointment() {
   };
 
   const bookNow = async () => {
+    setIsAvailable(false);
     try {
       dispatch(showLoading());
       const response = await axios.post(
@@ -88,6 +89,7 @@ function BookAppointment() {
       dispatch(hideLoading());
       if (response.data.success) {
         toast.success(response.data.message);
+        setIsAvailable(true);
       } else {
         toast.error(response.data.message);
       }
@@ -120,14 +122,18 @@ function BookAppointment() {
               <div className="d-flex flex-column pt-2">
                 <DatePicker
                   format="DD-MM-YYYY"
-                  onChange={(value) =>
-                    setDate(dayjs(value).format("DD-MM-YYYY"))
-                  }
+                  onChange={(value) => {
+                    setIsAvailable(false);
+                    setDate(dayjs(value).format("DD-MM-YYYY"));
+                  }}
                 />
                 <TimePicker
                   format="HH:mm"
                   className="mt-3"
-                  onChange={(value) => setTime(dayjs(value).format("HH-mm"))}
+                  onChange={(value) => {
+                    setIsAvailable(false);
+                    setTime(dayjs(value).format("HH-mm"));
+                  }}
                 />
                 <Button
                   className="primary-button mt-3 full-width-button"
@@ -135,12 +141,14 @@ function BookAppointment() {
                 >
                   Check availability
                 </Button>
-                <Button
-                  className="primary-button mt-3 full-width-button"
-                  onClick={() => bookNow()}
-                >
-                  Book now
-                </Button>
+                {isAvailable && (
+                  <Button
+                    className="primary-button mt-3 full-width-button"
+                    onClick={() => bookNow()}
+                  >
+                    Book now
+                  </Button>
+                )}
               </div>
             </Col>
           </Row>
