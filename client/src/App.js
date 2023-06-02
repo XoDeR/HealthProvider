@@ -8,6 +8,7 @@ import Notifications from "./pages/Notifications";
 import UserList from "./pages/Admin/UserList";
 import DoctorList from "./pages/Admin/DoctorList";
 import Profile from "./pages/Doctor/Profile";
+import DoctorAppointments from "./pages/Doctor/DoctorAppointments";
 import BookAppointment from "./pages/BookAppointment";
 import Appointments from "./pages/Appointments";
 import { Toaster } from "react-hot-toast";
@@ -103,6 +104,14 @@ function App() {
           element={
             <ProtectedRoute>
               <Appointments />
+            </ProtectedRoute>
+          }
+        ></Route>
+        <Route
+          path="/doctor/appointments"
+          element={
+            <ProtectedRoute>
+              <DoctorAppointments />
             </ProtectedRoute>
           }
         ></Route>
