@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { showLoading, hideLoading } from "../../redux/alertsSlice";
 import axios from "axios";
 import { Table } from "antd";
+import dayjs from "dayjs";
 
 function UserList() {
   const [users, setUsers] = useState([]);
@@ -42,6 +43,7 @@ function UserList() {
     {
       title: "Created at",
       dataIndex: "createdAt",
+      render: (text, record) => dayjs(record.createdAt).format("DD-MM-YYYY"),
     },
     {
       title: "Actions",
