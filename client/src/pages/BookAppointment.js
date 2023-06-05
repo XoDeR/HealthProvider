@@ -113,12 +113,32 @@ function BookAppointment() {
             {doctor.firstName} {doctor.lastName}
           </h1>
           <hr />
-          <Row>
+          <Row gutter={20} className="mt-5" align="middle">
+            <Col span={8} sm={24} xs={24} lg={8}>
+              <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6CiRQP2x4x3VkaXnoJeJsuvjOmlVN98Y__g&usqp=CAU"
+                alt=""
+                width="100%"
+                height="400"
+              />
+            </Col>
             <Col span={8} sm={24} xs={24} lg={8}>
               <h1 className="normal-text">
                 <b>Timings: </b>
                 {doctor.timings[0]} - {doctor.timings[1]}
               </h1>
+              <p>
+                <b>Phone number: </b>
+                {doctor.phoneNumber}
+              </p>
+              <p>
+                <b>Address: </b>
+                {doctor.address}
+              </p>
+              <p>
+                <b>Fee per visit: </b>
+                {doctor.feePerConsultation}
+              </p>
               <div className="d-flex flex-column pt-2">
                 <DatePicker
                   format="DD-MM-YYYY"
