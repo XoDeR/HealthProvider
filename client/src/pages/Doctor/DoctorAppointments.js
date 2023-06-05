@@ -93,9 +93,9 @@ function DoctorAppointments() {
       render: (text, record) => (
         <div className="d-flex">
           {record.status === "pending" && (
-            <div>
+            <div className="d-flex">
               <h1
-                className="anchor"
+                className="anchor px-2"
                 onClick={() => changeAppointmentStatus(record, "approved")}
               >
                 Approve
