@@ -88,6 +88,8 @@ function BookAppointment() {
       );
       dispatch(hideLoading());
       if (response.data.success) {
+        setTime();
+        setDate();
         toast.success(response.data.message);
         setIsAvailable(true);
       } else {
@@ -139,7 +141,7 @@ function BookAppointment() {
                 <b>Fee per visit: </b>
                 {doctor.feePerConsultation}
               </p>
-              <div className="d-flex flex-column pt-2">
+              <div className="d-flex flex-column pt-2 mt-2">
                 <DatePicker
                   format="DD-MM-YYYY"
                   onChange={(value) => {
@@ -155,12 +157,14 @@ function BookAppointment() {
                     setTime(dayjs(value).format("HH-mm"));
                   }}
                 />
-                <Button
-                  className="primary-button mt-3 full-width-button"
-                  onClick={checkAvailability}
-                >
-                  Check availability
-                </Button>
+                {!isAvailable && (
+                  <Button
+                    className="primary-button mt-3 full-width-button"
+                    onClick={checkAvailability}
+                  >
+                    Check availability
+                  </Button>
+                )}
                 {isAvailable && (
                   <Button
                     className="primary-button mt-3 full-width-button"
