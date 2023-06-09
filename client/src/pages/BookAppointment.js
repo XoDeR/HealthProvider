@@ -88,8 +88,6 @@ function BookAppointment() {
       );
       dispatch(hideLoading());
       if (response.data.success) {
-        setTime();
-        setDate();
         toast.success(response.data.message);
         setIsAvailable(true);
       } else {
